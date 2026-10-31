@@ -1,1 +1,20 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Madinah Arabic</title></head><body>
+<p style="font-family:sans-serif;text-align:center;margin-top:2rem">جاري التحميل… / Загрузка…</p>
+<script>
+(async function(){
+  const n = 28;
+  let b64 = '';
+  for (let i = 0; i < n; i++) {
+    const r = await fetch('c' + i + '.txt');
+    b64 += await r.text();
+  }
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const html = new TextDecoder('utf-8').decode(bytes);
+  document.open(); document.write(html); document.close();
+})().catch(e => { document.body.innerHTML = '<p>Ошибка загрузки: '+e+'</p>'; });
+</script>
+</body></html>
